@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+    <link rel="stylesheet" href="/stylesheets/detail.css">
+    <script type="text/javascript" src="/bootstrap/js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  </head>
+  <body>  
+    <%- include("header.ejs",{title:'首页',logout:"退出",who:who,create:"发表游记",index:'',isNew:true})%>
+    <div class="container">
+      <% if(isAuthor){ %>
+      <p class="modify-blog">
+        <a href="/blog/update?id=<%= itemList._id%>">修改游记</a>
+      </p>
+      <p class="delete-blog">
+        <a href="#" onclick="return false" id="delete-blog" name="<%= itemList._id%>">删除游记</a>
+      </p>
+    <% }else {%>
+      <p class="modify-blog">
+        <a href="#">收藏</a>
+      </p>
+      <p class="delete-blog">
+        <a href="#">评论</a>
+      </p>
+      <%}%>
+      <div class="media">
+          <div class="media-left">
+            <% for(var i=0;i<itemList.imgPath.length;i++) {%>
+            <div id="detail-img">
+              <img alt="64x64" src="<%= itemList.imgPath[i]%>"  width='300' height='300'>
+            </div>
+
+            <%}%>
+         
+          
+          </div>
+          <div class="media-body" id="media-body">
+            <div class="detail-title">
+                <h2 class="media-heading"><%= itemList.title%></h2>
+                作者:<span><%= itemList.author%></span>
+            </div>
+            <%= itemList.content%>  
+            <h2 class="empty">空空如也~~~~~</h2>
+          </div>
+      </div>
+    </div>
+     <div class="dialog-mask">
+           <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+              <div class="modal-dialog" role="document" id="modal-dialog">
+                <div class="modal-content" id="modal-content">
+                  <div class="modal-body" id="modal-body">
+                    <p>删除成功</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" id="close">关闭</button> 
+                  </div>
+                </div>
+              </div>
+           </div>
+      </div>
+   <%- include("footer.ejs") %> 
+
+  
+    
+   
+   
+    <script>
+      $('#delete-blog').click(function(){
+        console.log('aaa');
+       $.ajax({
+        url:'/blog/delete',
+        data:{
+          id:$('#delete-blog').attr('name')
+        },
+        success:function(res){
+          if(res.ok){
+            $('img').attr('src','');
+            $('.media-body').html('');
+            $('.dialog-mask').css('display','block');
+            $('#close').click(function(){
+            $('.dialog-mask').css('display','none');
+            $('.empty').css('display','block');
+            })
+          }
+
+        },
+        error:function(){
+          console.log('请求失败');
+        }
+
+       })
+      })
+
+
+    </script>
+  </body>
+</html>

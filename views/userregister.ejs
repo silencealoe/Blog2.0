@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel="stylesheet" href="/stylesheets/userregister.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+    <script type="text/javascript" src="/bootstrap/js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  </head>
+  <body>
+   <!-- onsubmit:return false -->
+    <%- include("header.ejs",{title:"注册",logout:"注销",who:"--",create:'',index:'',isNew:false})%>
+    <div class="container">
+      <div class="register-bg">
+     
+      </div>
+      <form class="form-horizontal" id="register-form" action='/userregister/validate' method="post"> 
+          <div class="form-group">
+            <div class="col-sm-10">
+              <div class="label-pic"><i class="glyphicon glyphicon-envelope"></i></div>
+              <input type="email" class="form-control" id="inputEmail3" placeholder="请输入邮箱,如：xiaoming@163.com" name="email">
+            </div>
+          </div>
+          <div class="alert alert-danger" role="alert" id="warn-email">
+                此邮箱已被注册
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10">
+              <div class="label-pic"><i class="glyphicon glyphicon-user"></i></div>
+              <input type="text" class="form-control" id="inputUsername" placeholder="请输入用户名" name="username">
+            </div>
+          </div>
+          <div class="alert alert-danger" role="alert" id="warn-username">
+                用户名格式不正确
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10">
+            <div class="label-pic">
+              <i class="glyphicon glyphicon-lock"></i>
+            </div>
+              <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码,需包含6位以上数字和字母" name="password">
+            </div>
+          </div>
+          <div class="alert alert-danger" role="alert" id="warn-password">
+                密码格式不正确
+          </div>
+             
+          <div class="form-group">
+            <div class="col-sm-10" id="to-login">
+              <button type="submit" class="btn btn-default" id="register-submit">提交</button>
+            </div>
+          </div>
+      </form>
+        
+      </div>
+      <% if(isSuccess){ %>
+      <div class="dialog-mask">
+           <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+              <div class="modal-dialog" role="document" id="modal-dialog">
+                <div class="modal-content" id="modal-content">
+                  <div class="modal-body">
+                    <p>注册成功&hellip;</p>
+                  </div>
+                  <div class="modal-footer">
+                    <a href="/userlogin"><button type="button" class="btn btn-default" data-dismiss="modal">登录</button></a>
+                      <a href="/userregister"><button type="button" class="btn btn-default" data-dismiss="modal">返回</button></a>       
+                  </div>
+                </div>
+              </div>
+           </div>
+        </div>
+      <%}%>
+      <%- include("footer.ejs") %> 
+   
+
+    <script>
+      //验证密码
+      $('#inputPassword3').blur(function(){
+          let rege=/[a-zA-Z0-9]{6,10}/;
+          let result=rege.test( $('#inputPassword3').val());
+          if(!result){
+            $('#warn-password').html('密码格式不正确').show();
+            $('form').attr('onsubmit','return false');
+          }
+      })
+
+      //验证邮箱
+      $('#inputEmail3').blur(function(){
+
+       let rege=/[a-zA-Z0-9]{3,}@(.+)/;
+       var result=rege.test($('#inputEmail3').val());
+        
+        if($('#inputEmail3').val()===''){
+
+            $('#warn-email').html('邮箱不能为空').show();
+              $('form').attr('onsubmit','return false');
+
+        }
+       else if(!result){
+            $('#warn-email').html('请输入正确邮箱').show();
+              $('form').attr('onsubmit','return false');
+
+       }
+       else{
+        $.ajax({
+          url:'/userregister/check',
+          data:{
+            email:$('#inputEmail3').val()
+          },
+          success:function(resp){
+            if(!resp.ok){
+              $('#warn-email').show();
+              $('form').attr('onsubmit','return false');
+
+            }else{
+                $('#warn-email').hide();
+
+            }
+          },
+          error:function(){
+            console.log(请求失败);
+          }
+        })
+
+       }
+      })
+
+    </script>
+  </body>
+</html>

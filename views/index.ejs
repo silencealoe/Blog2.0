@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel="stylesheet" href="/stylesheets/index.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+    <script type="text/javascript" src="/bootstrap/js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  </head>
+  <body>
+    <%- include("header.ejs",{title:'首页',logout:"退出",who:user,create:"发表游记",index:'',isNew:true})%>
+    <div class="container-fluid">
+      <div class="container">
+        <div class="avator">
+          <img src="..." alt="..." class="img-rounded">
+        </div>
+        <div class="author-name">我の博客</div>
+        <hr>
+        <div class="blog-info-img">
+        </div>
+        <div class="blog-item">
+          <h2>最新博客</h2>
+          <ul>
+            <% for(var i=0;i<itemList.length;i++){ %>
+            <li>
+              <div class="blog-name">
+                <h3>
+                  <a href="/detail?id=<%= itemList[i]._id%>"><%= itemList[i].title%></a>
+                </h3>
+              </div>
+              <div class="blog-author">
+                
+                作者：<%= itemList[i].author %>
+              </div>
+              <div class="blog-detail">
+                <%= itemList[i].content %>
+              </div>
+              <div class="blog-info">
+                <span class="blog-time"><%= handleDate(itemList[i].createTime) %> |</span>
+                <span class="blog-like">喜欢(<%= itemList[i].like %>) |</span>
+                <span class="blog-read">阅读(1)</span>
+              </div>
+            </li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <%- include("footer.ejs") %> 
+
+    <script>
+      $('.blog-like').each(function(i){
+        $(this).one('click',function(){
+          var id=$('.row').eq(i).attr('name');
+          var nums=parseInt($('span').eq(i).html())+1;
+         $('span').eq(i).html(nums);
+
+          ajax(id,nums);
+
+        })
+      })
+
+      function ajax(id,like){
+        $.ajax({
+          type:'post',
+          url:'/addlike',
+          data:{
+            id:id,
+            like:like
+          },
+          success:function(res){
+            console.log(res);
+          },
+          error:function(){
+            console.log('请求失败');
+          }
+        })
+      }
+   
+  
+    
+    </script>
+   
+  </body>
+</html>

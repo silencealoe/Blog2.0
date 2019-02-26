@@ -1,0 +1,93 @@
+.login-bg{
+	position: absolute;
+	left:0;
+	top:0;
+	z-index: -2;
+	width:100%;
+
+}
+.login-bg img{
+	width: 100%;
+}
+.form-horizontal{
+	margin: 180px auto;
+	border:1px solid #ccc;
+	/*padding:20px;*/
+	padding-left: 60px;
+	padding-top: 30px;
+	background:rgba(255,255,255,.2);
+	border-radius: 20px;
+	width:480px;
+	/*box-shadow: 0 0 5px 5px #ccc;*/
+}
+ul{
+	display: none;
+}
+.container{
+
+}
+.control-label{
+	text-align:center;
+	height: 30px;
+	line-height: 30px;
+	padding-right: 0;
+	padding-left: 0;
+	width: 30px;
+	background: #ccc;
+
+}
+
+.col-sm-10{
+	/*padding-left: 0;*/
+	position: relative;
+}
+.form-control{
+	margin-top: 8px;
+	padding-left: 0;
+
+}
+i{
+	font-size: 20px;
+	color:#ccc;
+}
+.form-group{
+	position: relative;
+
+}
+.form-group input{
+	text-indent: 2em;
+
+}
+
+.email-pic{
+	position: absolute;
+	left:20px;
+	top:14px;
+	z-index: 10px;
+}
+#to-login{
+	width:10px;
+	float: left;
+}
+#to-register{
+	width: 10px;
+	float: left;
+	margin-left: 30px;
+}
+#warn-password{
+	width:300px;
+	height:30px;
+	margin-left:100px;
+	line-height: 5px;
+	/*display: none;*/
+
+}
+.btn-default{
+	background:#1f7994;
+	border:1px solid #1f7994;
+	color:white;
+
+}
+.btn-default a{
+	color:white;
+}

@@ -1,0 +1,27 @@
+<div class="container-fluid">
+<div  id="container-top">
+  <nav class="navbar navbar-default" id="header-nav">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="onclick:return false">
+         【在路上,一个博客，一个故事】
+        </a>
+        <a class="navbar-brand"  href="onclick:return false">
+         <%= title%>
+        </a>
+        <a class="navbar-brand" id="back-index"href="/">
+          <%= index%>
+        </a>
+      </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          
+          <ul class="nav navbar-nav navbar-right">
+            <li class="create-revise">
+                  <a href="/blog"><%= create %></a>
+            </li>
+            <li><a href="/userInfo">【<%= who %>】</a></li>
+            <li><a href="/logout"><%= logout %></a></li>
+          </ul>
+        </div>
+    </nav>
+  </div>
+</div>

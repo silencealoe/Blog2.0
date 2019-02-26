@@ -1,0 +1,23 @@
+{
+  "name": "roadblog",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node-dev ./bin/www"
+  },
+  "dependencies": {
+    "connect-multiparty": "^2.2.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "express-session": "^1.15.6",
+    "http-errors": "~1.6.2",
+    "md": "^0.6.0",
+    "md5": "^2.2.1",
+    "mongoose": "^5.4.3",
+    "morgan": "~1.9.0",
+    "multer": "^1.4.1",
+    "xixi": "0.0.0"
+  }
+}

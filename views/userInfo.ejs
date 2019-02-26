@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel="stylesheet" href="/stylesheets/userInfo.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+    <script type="text/javascript" src="/bootstrap/js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  </head>
+  <body>  
+    <%- include("header.ejs",{title:'个人中心',logout:"退出",who:who,create:'',index:"返回首页",isNew:isNew})%>
+    <!-- <div class="container-fluid"> -->
+      <div class="container">
+        <ul class="nav nav-pills">
+          <li role="presentation" class="active"><a href="#">游记</a></li>
+          <li role="presentation"><a href="#">画册</a></li>
+          <li role="presentation"><a href="#">评论</a></li>
+          <li role="presentation"><a href="#">收藏</a></li>
+          <li role="presentation"><a href="#">关注</a></li>
+          <li role="presentation"><a href="#">我的信息</a></li>
+        </ul>
+        <ul class="info-content" id="info-content">
+          <li>
+            <table class="table" >
+              <caption>我的游记</caption>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>标题</th>
+                  <th>创建日期</th>
+                  <th>喜欢</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i=0;i<itemList.length;i++){%>
+                    <tr>
+                        <th scope="row"><%= i+1 %></th>
+                        <td><a href="/detail?id=<%= itemList[i]._id %>"><%= itemList[i].title%></a></td>
+                        <td><%= handleDate(itemList[i].createTime)%></td>
+                        <td><%= itemList[i].like%></td>           
+                    </tr>
+                <%}%>
+              </tbody>
+            </table>
+          </li>
+          <li>zzz</li>
+          <li>xxx</li>
+          <li>aaa</li>
+          <li>aa</li>
+          <li>
+            <div class="my-info">
+              <div class="head-img">
+                <img src="<%= isNew?infoList.headPath:''%>" alt="" class="img-circle" width='100' height="100">
+              </div>
+
+              <div class="nickname">
+                <p>昵称：<span class="b-user"><%= who%></span></p>
+                <p class="b-mark"><%= isNew?infoList.mark:'' %></p>
+                <p class="modify-info">
+                  <a href="" onclick="return false" id="modify-info"><%= isNew?'修改信息':'新建信息'%></a>
+                  <i class="glyphicon glyphicon-pencil"></i>   
+                </p>
+              </div>
+              <div class="detailed-info">
+                <p>常住地:<span class="b-addr"><%= isNew?infoList.addr:''%></span></p>
+                <p>性别:<span class="b-gender"><%= isNew?infoList.gender:''%></span></p>
+                <p>年龄:<span class="b-age"><%= isNew?infoList.age:'' %></span></p>
+             
+              </div>
+            </div>
+            <div class="revise-info">
+              <h2><%= isNew?'修改信息':'新建信息'%></h2>
+              <div class="m-image">
+                <div class="head-img">
+                  <img src="<%= isNew?infoList.headPath:'' %>" alt="" class="img-circle" id="img-circle" width="100" height="100">
+                  <i class="glyphicon glyphicon-plus" id="plus"></i>
+                </div>
+
+                <div class="upload-img">
+                  <input type="file" id="user-image" onchange="changepic(this)" name="myimg">
+                  <p class="ipt-mask">上传头像</p> 
+                </div>
+              </div>
+              <div class="m-name">
+                  <label>昵称：</label>
+                  <input type="text" id="user-name" value="<%= isNew?infoList.nickname:'' %>">
+              </div>
+              <div class="m-age">
+                  <label>年龄：</label>
+                  <input type="text" id="user-age" value="<%= isNew?infoList.age:'' %>">
+              </div>
+              <div class="m-gender">
+                  <label>性别：</label>
+                  <input type="text" id="user-gender" value="<%= isNew?infoList.gender:'' %>">
+              </div>
+              <div class="m-addr">
+                  <label>常居地：</label>
+                  <input type="text" id="m-addr" value="<%= isNew?infoList.addr:'' %>">
+              </div>
+              <div class="m-mark">
+                  <label>个性标签：</label>
+                  <textarea name="m-mark" id="m-mark" cols="30" rows="6"><%= isNew?infoList.mark:'' %>
+                  </textarea>      
+              </div>
+              <%if(isNew){%>
+              <div id="revise">修改</div>
+              <%}else{%>
+                <div id="create">新建</div>
+              <% } %>
+            </div>
+          </li>        
+        </ul>
+      </div>  
+    </div>
+
+    <div class="dialog-mask">
+         <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+            <div class="modal-dialog" role="document" id="modal-dialog">
+              <div class="modal-content" id="modal-content">
+                <div class="modal-body">
+                  <p>成功</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal" id="confime">确定</button> 
+                </div>
+              </div>
+            </div>
+         </div>
+      <!-- </div> -->
+   <%- include("footer.ejs") %> 
+    <script>
+      var index=0;
+      $('.nav-pills li').each(function(i){
+         $(this).click(function(){
+          console.log('--'+index);
+          $('.info-content li').eq(index).css('display','none');
+          index=i;
+          console.log(i);
+          $('.active').removeClass('active');
+          $(this).addClass('active');
+          $('.info-content li').eq(i).css('display','block')
+         })
+      })
+      $('#modify-info').click(function(){
+        $('.my-info').css('display','none');
+        $('.revise-info').css('display','block');
+      }) 
+      function ajax(url){
+         var file = document.getElementById("user-image")
+         var formData = new FormData();
+         formData.append('file',file.files[0]);
+         formData.append('nickname',$('#user-name').val());
+         formData.append('age',$('#user-age').val());
+         formData.append('addr',$('#m-addr').val());
+         formData.append('mark',$('#m-mark').val());
+         formData.append('gender',$('#user-gender').val());
+         $.ajax({
+           url: url,
+           type: 'POST',
+           data: formData,
+           cache: false,
+           contentType: false,
+           processData: false,
+           success: function(resp){
+            console.log(resp)
+              if(resp.ok){
+                $('.dialog-mask').css('display','block');
+                $('#confime').click(function(){
+                $('.dialog-mask').css('display','none');
+                })
+              }else{
+
+              }
+           },
+           error: function(){
+             console.log('error');
+           }
+         });
+
+      }
+  
+      $('#create').click(function(){
+        ajax('/personInfo');
+          
+      })
+       $('#revise').click(function(){
+        ajax('/personInfo/update');
+          
+      })
+
+
+   function changepic() {
+      
+        var reads = new FileReader();
+       f = document.getElementById('user-image').files[0];
+       reads.readAsDataURL(f);
+       reads.onload = function(e) {
+       document.getElementById('img-circle').src = this.result;
+  
+       };
+    }
+       
+    </script>
+  </body>
+</html>

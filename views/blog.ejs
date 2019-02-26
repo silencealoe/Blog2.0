@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <link rel="stylesheet" href="/stylesheets/blog.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+    <script type="text/javascript" src="/bootstrap/js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  </head>
+  <body>
+   
+    <%- include("header.ejs",{title:isNew?"写游记":"修改游记",logout:"退出",who:user,create:'',index:"返回首页"})%>
+    <div class="container">
+      <form  action="<% isNew?'/blog':'/blog/update'%>" method="post" enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label for="exampleInputEmail1">标题</label>
+          <input type="text" class="form-control" id="exampleInputTitle" placeholder="输入标题" name="title" value="<%= isNew? '':update.title %>">  
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">内容</label>
+           <textarea name="content" class="form-control" rows="8">
+            <%= isNew? '':update.content %>
+          </textarea>
+        </div>
+         
+          <div class="upload-img">  
+              <input type="file" multiple name="myfile">
+              <p class="font-img">上传图片</p>
+          </div>
+        <input type="hidden" value="<%= isNew? '':update._id %>" name="id">
+        <!-- <input type="hidden"> -->
+        <button type="submit" class="btn btn-info" id="finish">完成</button>
+      </form>  
+    </div>
+     <% if(isSuccess){ %>
+      <div class="dialog-mask">
+           <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+              <div class="modal-dialog" role="document" id="modal-dialog">
+                <div class="modal-content" id="modal-content">
+                  <div class="modal-body">
+                    <p><%= isNew?'创建成功':'修改成功'%></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button> 
+                  </div>
+                </div>
+              </div>
+           </div>
+        </div>
+      <%}%>
+      <%- include("footer.ejs") %> 
+
+    <script>
+      $('.modal-footer button').click(function(){
+        $('.dialog-mask').hide();
+      })
+
+
+    </script>
+  </body>
+</html>
