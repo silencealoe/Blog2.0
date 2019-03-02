@@ -8,7 +8,7 @@ router.get('/',(req,res)=>{
 		console.log('aaa');
 
 		Promise.all([allBlogModel.find({author:req.session.whatever.username},{},{sort:{createTime:-1}}),userInfoModel.find({id:req.session.whatever._id})]).then(result=>{
-			console.log(result);
+			console.log(result[1][0]);
 			var hasInfo=true;
 			if(result[1].length===0){
 				console.log('empty');

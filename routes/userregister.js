@@ -1,18 +1,27 @@
 var express = require('express');
 var router = express.Router();
 var userModel = require('../model/user');
+var myCollect = require('../model/mycollection');
 
 router.get('/',(req,res)=>{
 	res.render('userregister',{title:"注册",isSuccess:false})
 })
 
 router.post('/validate',(req,res)=>{
+
 	userModel.create({
 		username:req.body.username,
 		password:req.body.password,
 		email:req.body.email
 	}).then(result=>{
-		res.render('userregister',{title:"注册",isSuccess:true});
+		console.log('register',result);
+		myCollect.create({
+			userId:result._id,
+			artical:[]
+		}).then(resu=>{
+               
+		     res.render('userregister',{title:"注册",isSuccess:true});
+		})
 	})
 })
 

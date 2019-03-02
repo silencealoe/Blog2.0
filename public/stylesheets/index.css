@@ -1,44 +1,164 @@
+*{
+	margin:0;
+	padding:0;
+}
+.blog-info{
+	height: 30px;
+	font-size: 16px;
+	line-height: 30px;
+	user-select: none;
+}
+li{
+	list-style: none;
+}
 i{
-	font-size: 20px;
+	/*font-size: 2px;*/
 	color:red;
 }
 body{
 	/*background: #f0f0f0;*/
 }
-td{
-	cursor: pointer;
-}
-td:hover{
-	color:blue;
-	/*text-decoration: underline;*/
-}
 .container{
 	overflow: hidden;
+	position: relative;
 	/*background:#ad9c68;*/
 }
 .blog-info-img{
 	float: left
 }
 .blog-item{
-	float: right;
+	width: 800px;
+	margin: 0 auto;
+	float:left;
+
+}
+.blog-blog li{
+	position: relative;
 }
 .blog-item h2{
 	color:white;
 }
-.blog-item li{
-	width:600px;
+.blog-item-id{
 	list-style: none;
 	background:white;
-	padding: 10px;
+	padding: 20px;
+	height: 160px;
 	margin-bottom: 10px;
 	color:black;
 	border-radius: 10px;
 
 }
-.blog-item li .blog-detail{
-	height: 60px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+.blog-name{
 
+}
+.blog-name h3{
+	margin:0;
+}
+.blog-item-id  .blog-detail{
+	min-height: 20px;
+	max-height:40px;
+	overflow: hidden;
+	position: relative;
+	text-indent: 2em;
+	/*text-overflow: ellipsis;
+	white-space: nowrap;*/
+}
+.blog-detail:after{
+	position: absolute;
+	right: 0;
+	bottom:0;
+	content: '...'
+
+}
+.read-all{
+	position: absolute;
+	right: 20px;
+	top:106px;
+
+}
+.read-all a{
+	color:#175199;
+}
+.blog-info{
+	position: absolute;
+	bottom: 5px;
+	left:5px;
+}
+.blog-info li{
+	float: left;
+	margin-left: 10px;
+	font-size: 14px;
+	color:#8590A6;
+
+}
+.blog-info li i{
+	color:#8590A6;
+}
+.avator-name{
+	overflow: hidden;
+}
+.avator{
+	float: left;
+}
+.avator img{
+	
+	width:100px;
+	height:100px;
+}
+.author-name{
+	float: left;
+	margin-left: 20px;
+	margin-top: 28px;
+}
+.author-name a{
+	color:black;
+	font-size: 20px;
+	font-weight: bold;
+}
+.right-info{
+	float: right;
+	width:310px;
+	margin-left: 20px;
+	background: white;
+	margin-top: 62px;
+	border-radius: 10px;
+	padding: 20px;
+}
+.publishblog{
+	text-align: center;
+	font-size: 20px;
+	color:block;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+.publishblog i{
+	color:black;
+}
+.right-detail li{
+	font-size: 16px;
+	color:#8590A6;
+	padding: 5px;
+
+
+}
+.right-detail i{
+	color:#8590A6;
+
+}
+.right-info-fix{
+	position: fixed;
+	right: 60px;
+	top:-60px;
+}
+.no-head{
+	width: 80px;
+	height: 80px;
+	background: white;
+	text-align: center;
+	line-height: 80px;
+	border-radius: 5px;
+}
+.no-head i{
+	font-size: 80px;
+	color:#ccc;
 }

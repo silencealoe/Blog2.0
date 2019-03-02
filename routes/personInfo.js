@@ -15,7 +15,8 @@ router.post('/',userImg.single('file'),(req,res)=>{
 	 	mark:req.body.mark,
 	 	addr:req.body.addr,
 	 	gender:req.body.gender,
-	 	headPath:'/userImg/'+req.file.filename
+	 	headPath:'/userImg/'+req.file.filename,
+	 	stylePath:''
 	 }).then(result=>{
 	 	res.send({
 	 		ok:1
@@ -37,5 +38,14 @@ router.post('/update',userImg.single('file'),(req,res)=>{
 			ok:1
 		})
 	});
+})
+
+router.post('/addstyleimg',userImg.single('file'),(req,res)=>{
+	console.log(req.file);
+	console.log(req.body);
+	userInfoModel.update({id:req.body.id},{$set:{stylePath:'/userImg/'+req.file.filename}}).then(result=>{
+		console.log('eeee',result);
+	})
+
 })
 module.exports=router;

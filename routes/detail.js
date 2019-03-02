@@ -2,14 +2,23 @@ var express = require('express');
 var router = express.Router();
 var allBlogModel = require("../model/allartical");
 var myBlogModel = require("../model/myartical");
-
-
 router.get('/',(req,res)=>{
-	if(req.session.whatever.username){
+	if(req.session.whatever){
 		console.log(req.query);
-		Promise.all([myBlogModel.find({_id:req.query.id}),allBlogModel.find({_id:req.query.id})]).then(result=>{
+	    allBlogModel.find({_id:req.query.id}).then(result=>{
         	console.log(result);
-        	var final = result[0][0]? result[0][0]: result[1][0];
+            var u_id=result[0].readId.indexOf(req.query.userid);
+            if(u_id===-1){
+            	result[0].readId.push(req.query.userid);
+            	var array=result[0].readId;
+            	console.log('de-array',array);
+                var reads=parseInt(result[0].read)+1;
+                console.log('reads',reads);
+                allBlogModel.findByIdAndUpdate(req.query.id,{$set:{read:reads,readId:array}}).then(resu=>{
+                	console.log('updateread',resu);
+                })
+            }
+        	var final = result[0];
         	console.log(final)
         	var isAuthor = false;
         	console.log(final.author);

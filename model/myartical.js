@@ -7,7 +7,10 @@ var obj = {
 	content:String,
 	createTime:Date,
 	like:Number,
-	imgPath:Array
+	imgPath:Array,
+	collect:Number,
+	likeId:Array,
+	collectionId:Array
 }
 
 var blogModel = mongoose.model("myartical",new Schema(obj));

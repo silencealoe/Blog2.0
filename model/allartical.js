@@ -7,7 +7,12 @@ var obj = {
 	content:String,
 	createTime:Date,
 	like:Number,
-	imgPath:Array
+	imgPath:Array,
+	collect:Number,
+	likeId:Array,
+	collectionId:Array,
+	read:Number,
+	readId:Array
 }
 
 var blogModel = mongoose.model("allartical",new Schema(obj));

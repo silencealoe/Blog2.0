@@ -58,7 +58,7 @@
 .container{
 	position: relative;
 }
- p{
+ .container p{
 	width:100px;
 	height: 40px;
 	position: absolute;
@@ -67,18 +67,18 @@
 	line-height: 40px;
 	z-index: 111;
 }
- p:nth-of-type(2){
+ .container  p:nth-of-type(2){
 	right: 100px;
 	top:10px;
 }
-p a{
+ .container p a{
 	display: block;
  	width:100%;
  	height:100%;
 	text-decoration:underline;
 
 }
-p:hover a{
+ .container p:hover a{
  	color:black;
  	
 }

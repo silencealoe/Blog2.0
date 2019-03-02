@@ -2,6 +2,10 @@
 	margin:0;
 	padding: 0;
 }
+.container{
+	width: 900px;
+	height: 700px;
+}
  .navbar-default{
  	margin-bottom: 0;
  	border: none;
@@ -9,6 +13,128 @@
 #container-fluid{
 	height: 700px;
 	background:;
+}
+.styleImg{
+	width: 100%;
+	height: 200px;
+	background: #ccc;
+	position: relative;
+	overflow: hidden;
+}
+.storeImg{
+	width:60px;
+	height: 30px;
+	background:#0084FF;
+	color: white;
+	text-align: center;
+	line-height: 30px;
+	border-radius: 5px;
+	position: absolute;
+	right: 10px;
+	top:140px;
+	cursor: pointer;
+	display: none;
+}
+.styleImg img{
+	display: block;
+	width: 100%;
+}
+.edit-img{
+	width:120px;
+	height:40px;
+	border:1px solid black;
+	position: absolute;
+	right: 10px;
+	top:20px;
+	z-index: 7;
+	text-align: center;
+	line-height: 40px;
+
+}
+.file-down{
+
+	opacity: 0;
+}
+.file-on{
+	position: absolute;
+	left:10px;
+	pointer-events: none;
+
+}
+.revise-my-info{
+	height: 140px;
+	position: relative;
+	background: white;
+	margin-bottom: 10px;
+
+}
+.revise-my-info .head-img{
+	box-sizing: border-box;
+
+	width:120px;
+	height: 112px;
+	position: absolute;
+	left:20PX;
+	top:-20px;
+	z-index:10;
+	border:4px solid #f0f0f0;
+	border-radius: 5px;
+}
+.head-img img{
+	display: block;
+	width: 100%;
+	height:104px;
+}
+.nickname{
+	position: absolute;
+	left:180px;
+}
+.edit-info{
+	width:120px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border:1px solid #1f7994;
+	position: absolute;
+	right: 40px;
+	top:20px;
+	user-select: none;
+}
+.look-edit{
+	width:100%;
+	height: 80px;
+	background: white;
+	position:absolute;
+	left:0px;
+	top:60px;
+	z-index: 5;
+	transition: .3s;
+}
+.look-all{
+	position: absolute;
+	left:160px;
+	top:20px;
+	user-select: none;
+	z-index: 5;
+	color: #8590A6;
+}
+.look-all i{
+	color:#8590A6;
+	font-size: 14px;
+	font-weight: normal;
+}
+.all-info{
+	width:380px;
+	background: white;
+	position: absolute;
+	left:180px;
+	top:60px;
+	z-index: 5px;
+	user-select: none;
+
+}
+.all-info p{
+	margin:0;
 }
 
 .nav-pills{
@@ -38,29 +164,7 @@ li{
 #info-content{
 	padding-left:0;
 }
-.my-info{
-	width:500px;
-	border:5px solid white;
-	margin:100px auto;
-	padding: 10px;
-	overflow: hidden;
-	display: block;
-}
-.head-img{
-	float: left;
-	margin-left: 20px;
-	margin-right: 20px;
-}
-.nickname{
-	margin-top: 20px;
-	float: left;
-}
-.detailed-info{
-	width: 140px;
-	height:100px;
-	padding-top:20px;
-	clear: both;
-}
+
 .modify-info a{
 	color:black;
 }
@@ -72,15 +176,6 @@ li{
 	padding: 30px;
 	overflow: hidden;
 	display: none;
-}
-.head-img{
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	border:2px solid gray;
-	text-align:center;
-	line-height:100px;	
-	position: relative;
 }
 .upload-img{
 	margin-left: 150px;
@@ -149,16 +244,6 @@ textarea{
 }
 .head-img i{
 	font-size: 40px;
-}
-.head-img .img-circle{
-	display: block;
-	height: 100px;
-	width:100px;
-	border-radius: 50%;
-	position:absolute;
-	left:-2px;
-	top:-2px;
-	z-index: 10;
 }
 .ipt-mask{
 	width:80px;

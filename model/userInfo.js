@@ -8,7 +8,8 @@ var obj = {
 	addr:String,
 	mark:String,
 	gender:String,
-	headPath:String
+	headPath:String,
+	stylePath:String
 }
 
 var blogModel = mongoose.model("userInformation",new Schema(obj));

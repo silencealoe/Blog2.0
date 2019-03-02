@@ -11,15 +11,55 @@
   </head>
   <body>  
     <%- include("header.ejs",{title:'个人中心',logout:"退出",who:who,create:'',index:"返回首页",isNew:isNew})%>
-    <!-- <div class="container-fluid"> -->
+  <div class="container-fluid">
       <div class="container">
+        <div class="styleImg" name="<%= infoList.id %>">
+          <div class="storeImg">保存</div>
+          <img src="<%= infoList.stylePath%>" alt="" id="style-img-src">
+          <div class="edit-img">
+            <div class="file-down">
+              <input type="file" id="style-img" name="styleImg" onchange="changepic('style')">
+            </div>
+            <div class="file-on"> 
+              <i class="glyphicon glyphicon-camera"></i>
+              编辑封面图片
+            </div>  
+          </div>
+        </div>
+        <div class="revise-my-info">
+          <div class="head-img">
+            <img src="<%= isNew?infoList.headPath:''%>" alt="">
+          </div>
+          <div class="nickname">
+            <h2><%= who%></h2>
+          </div>
+          <div class="all-info">
+            <div class="detailed-info">
+              <p>个性标签:<span  class="b-mark"><%= isNew?infoList.mark:'' %></span></p>
+              <p>常住地:<span class="b-addr"><%= isNew?infoList.addr:''%></span></p>
+              <p>性别:<span class="b-gender"><%= isNew?infoList.gender:''%></span></p>
+              <p>年龄:<span class="b-age"><%= isNew?infoList.age:'' %></span></p>
+            </div> 
+
+          </div>
+          <div class="look-edit">
+             <div class="look-all">
+              <i class="glyphicon glyphicon-chevron-down"></i>
+               查看全部资料
+             </div>
+            <div class="edit-info">
+              编辑个人资料
+            </div>
+            
+          </div>
+       
+        </div>
+
         <ul class="nav nav-pills">
-          <li role="presentation" class="active"><a href="#">游记</a></li>
-          <li role="presentation"><a href="#">画册</a></li>
-          <li role="presentation"><a href="#">评论</a></li>
-          <li role="presentation"><a href="#">收藏</a></li>
+          <li role="presentation" class="active"><a href="#">博客</a></li>
+          <li role="presentation"><a href="#">相册</a></li>
+          <li role="presentation"><a href="#">收藏博客</a></li>
           <li role="presentation"><a href="#">关注</a></li>
-          <li role="presentation"><a href="#">我的信息</a></li>
         </ul>
         <ul class="info-content" id="info-content">
           <li>
@@ -51,35 +91,32 @@
           <li>aa</li>
           <li>
             <div class="my-info">
-              <div class="head-img">
-                <img src="<%= isNew?infoList.headPath:''%>" alt="" class="img-circle" width='100' height="100">
-              </div>
+             
 
               <div class="nickname">
                 <p>昵称：<span class="b-user"><%= who%></span></p>
-                <p class="b-mark"><%= isNew?infoList.mark:'' %></p>
+              <!--   <p class="b-mark"><%= isNew?infoList.mark:'' %></p> -->
                 <p class="modify-info">
                   <a href="" onclick="return false" id="modify-info"><%= isNew?'修改信息':'新建信息'%></a>
                   <i class="glyphicon glyphicon-pencil"></i>   
                 </p>
               </div>
-              <div class="detailed-info">
+            <!--   <div class="detailed-info">
                 <p>常住地:<span class="b-addr"><%= isNew?infoList.addr:''%></span></p>
                 <p>性别:<span class="b-gender"><%= isNew?infoList.gender:''%></span></p>
                 <p>年龄:<span class="b-age"><%= isNew?infoList.age:'' %></span></p>
              
-              </div>
+              </div> -->
             </div>
             <div class="revise-info">
               <h2><%= isNew?'修改信息':'新建信息'%></h2>
               <div class="m-image">
-                <div class="head-img">
+               <!--  <div class="head-img">
                   <img src="<%= isNew?infoList.headPath:'' %>" alt="" class="img-circle" id="img-circle" width="100" height="100">
                   <i class="glyphicon glyphicon-plus" id="plus"></i>
-                </div>
-
+                </div> -->
                 <div class="upload-img">
-                  <input type="file" id="user-image" onchange="changepic(this)" name="myimg">
+                  <input type="file" id="user-image" onchange="changepic('user')" name="myimg">
                   <p class="ipt-mask">上传头像</p> 
                 </div>
               </div>
@@ -114,6 +151,7 @@
         </ul>
       </div>  
     </div>
+  </div>
 
     <div class="dialog-mask">
          <div class="modal fade" tabindex="-1" role="dialog" id="modal">
@@ -128,9 +166,18 @@
               </div>
             </div>
          </div>
-      <!-- </div> -->
+    </div>
    <%- include("footer.ejs") %> 
     <script>
+      $('.look-all').click(function(){
+          $('.look-all i').toggleClass(' glyphicon-chevron-down glyphicon-chevron-up');
+        if($('.look-edit').css('top')==='140px'){
+          $('.look-edit').css('top','60px');
+          
+        }else{
+         $('.look-edit').css('top','140px');
+        }
+      })
       var index=0;
       $('.nav-pills li').each(function(i){
          $(this).click(function(){
@@ -148,7 +195,7 @@
         $('.revise-info').css('display','block');
       }) 
       function ajax(url){
-         var file = document.getElementById("user-image")
+         var file = document.getElementById("user-image");
          var formData = new FormData();
          formData.append('file',file.files[0]);
          formData.append('nickname',$('#user-name').val());
@@ -191,16 +238,59 @@
       })
 
 
-   function changepic() {
-      
+   function changepic(who) {
+       console.log(this);
         var reads = new FileReader();
-       f = document.getElementById('user-image').files[0];
-       reads.readAsDataURL(f);
-       reads.onload = function(e) {
-       document.getElementById('img-circle').src = this.result;
-  
-       };
+       if(who==='style'){
+          f = document.getElementById('style-img').files[0];
+           reads.readAsDataURL(f);
+           reads.onload = function(e) {
+           document.getElementById('style-img-src').src = this.result;
+           
+           }
+       }
+       if(who==='user'){
+          f = document.getElementById('user-image').files[0];
+          reads.readAsDataURL(f);
+          reads.onload = function(e) {
+          
+          document.getElementById('img-circle').src = this.result;
+          
+          }
+       }
+      
     }
+    $('.file-down').click(function(){
+      console.log('cccc');
+       $('.storeImg').css('display','block');
+    })
+
+    $('.storeImg').click(function(){
+      var file = document.getElementById("style-img");
+      var id=$('.styleImg').attr('name');
+      console.log(id);
+      var formData = new FormData();
+      console.log(file);
+      formData.append('file',file.files[0]);
+      formData.append('id',id);
+      $.ajax({
+        url:'/personInfo/addstyleimg',
+        type:'post',
+        data:formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success:function(res){
+          console.log(res);
+
+        },
+        error:function(){
+          console.log("请求失败")
+        }
+      })
+
+    })
+
        
     </script>
   </body>

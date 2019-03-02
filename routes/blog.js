@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var allBlogModel = require("../model/allartical");
 var myBlogModel = require("../model/myartical");
+var userInfo = require("../model/userInfo");
 var multer = require('multer');
 var upload = multer({dest:'public/upload'});
 
@@ -16,25 +17,23 @@ router.get('/',(req,res)=>{
 router.post('/',upload.array('myfile'),(req,res)=>{
 	console.log(req.body);
 	var imgArray = req.files.map(item=>'/upload/'+item.filename);
-	myBlogModel.create({
-		author:req.session.whatever.username,
-		title:req.body.title,
-		content:req.body.content,
-		createTime:new Date(),
-		imgPath:imgArray,
-		like:0
-	}).then(result=>{
         allBlogModel.create({
         	author:req.session.whatever.username,
         	title:req.body.title,
         	content:req.body.content,
         	createTime:new Date(),
+        	imgPath:imgArray,
         	like:0,
-        	imgPath:imgArray
+        	collect:0,
+        	read:0,
+        	readId:[],
+        	likeId:[],
+        	collectionId:[]
         }).then(result=>{
+        	console.log('1233333');
         	res.render('blog',{title:'创建博客',user:req.session.whatever.username,isNew:true,isSuccess:true})
         })
-	})
+
 
 })
 

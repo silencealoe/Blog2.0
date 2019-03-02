@@ -13,18 +13,33 @@
     <%- include("header.ejs",{title:'首页',logout:"退出",who:user,create:"发表游记",index:'',isNew:true})%>
     <div class="container-fluid">
       <div class="container">
-        <div class="avator">
-          <img src="..." alt="..." class="img-rounded">
+        <div class="avator-name">
+          <div class="avator">
+            <a href="/userInfo">
+              <% if(userinfo.headPath!==undefined){ %>
+              <img src="<%= userinfo.headPath %>" alt="..." title="点击进入我的主页" class="img-rounded">
+              <% } else{ %>
+              <div class="no-head">
+                <i class="glyphicon glyphicon-user"></i>
+              </div>
+              <%}%>
+            </a>
+          </div>
+          <div class="author-name" name="<%= userinfo.id %>">
+            <a href="/userInfo"><%= userinfo.nickname %>の博客</a>
+          </div>
+          
+          
         </div>
-        <div class="author-name">我の博客</div>
+       
         <hr>
         <div class="blog-info-img">
         </div>
         <div class="blog-item">
-          <h2>最新博客</h2>
-          <ul>
+          <h2>博客推荐</h2>
+          <ul class="blog-blog">
             <% for(var i=0;i<itemList.length;i++){ %>
-            <li>
+            <li name='<%= itemList[i]._id %>' class="blog-item-id">
               <div class="blog-name">
                 <h3>
                   <a href="/detail?id=<%= itemList[i]._id%>"><%= itemList[i].title%></a>
@@ -37,14 +52,65 @@
               <div class="blog-detail">
                 <%= itemList[i].content %>
               </div>
+              <p class="read-all"><a href="/detail?id=<%= itemList[i]._id%>&userid=<%= userinfo.id%>">阅读全文</a></p>
               <div class="blog-info">
-                <span class="blog-time"><%= handleDate(itemList[i].createTime) %> |</span>
-                <span class="blog-like">喜欢(<%= itemList[i].like %>) |</span>
-                <span class="blog-read">阅读(1)</span>
+                <ul>
+                  <li>
+                      <span class="blog-time"><%= handleDate(itemList[i].createTime) %></span>
+                  </li>
+                  <li>
+                      <span class="blog-like">
+                          <i class="glyphicon glyphicon-thumbs-up"></i>
+                      </span>
+                      <span>赞</span>
+                      <span>(</span>
+                      <span class="like-numbers"><%= itemList[i].like %></span>
+                      <span>)</span>     
+                  </li>
+                  <li>  
+                     <span class="blog-read">
+                        <i class="glyphicon glyphicon-search"></i>
+                      </span>
+                      <span>阅读</span>
+                      <span>(</span>
+                      <span class="blog-read-num"><%= itemList[i].read %></span>
+                      <span>)</span>
+                  </li> 
+                  <li>
+                    <span class="blog-collect">
+                      <i class="glyphicon glyphicon-star-empty"></i>
+                    </span>
+                    <span>收藏</span>
+                    <span>(</span>
+                    <span class="blog-collect-num"><%= itemList[i].collect %></span>
+                    <span>)</span>
+                    
+                  </li>
+                  <li>
+                    <span class="blog-comment"> 
+                      <i class="glyphicon glyphicon-comment"></i>
+                    </span>
+                    <span>评论</span>
+                    <span>(</span>
+                    <span class="blog-mark-num">2</span>
+                    <span>)</span>
+                  </li>
+                </ul>
               </div>
             </li>
             <% } %>
           </ul>
+        </div>
+        <div class="right-info" id="rightinfo">
+          <div class="publishblog">
+             <span><a href="/blog"><i class="glyphicon glyphicon-pencil"></i>  写博客</a></span>
+          </div>
+          <ul class="right-detail">
+             <li><i class="glyphicon glyphicon-star"></i>  我的收藏</li>
+             <li><i class="glyphicon glyphicon-question-sign"></i>  我的关注</li>
+             <li><i class="glyphicon glyphicon-user"></i>  我的主页</li>
+          </ul>
+
         </div>
       </div>
     </div>
@@ -53,25 +119,42 @@
     <script>
       $('.blog-like').each(function(i){
         $(this).one('click',function(){
-          var id=$('.row').eq(i).attr('name');
-          var nums=parseInt($('span').eq(i).html())+1;
-         $('span').eq(i).html(nums);
-
-          ajax(id,nums);
+          var id=$('.blog-item-id').eq(i).attr('name');
+          var userid=$('.author-name').attr('name');
+          var nums=parseInt($('.like-numbers').eq(i).html());
+         // $('.like-numbers').eq(i).html(nums);
+          ajax(id,nums,userid,i,'/addlike');
+        })
+      })
+      $('.blog-collect').each(function(i){
+        $(this).one('click',function(){
+          var id=$('.blog-item-id').eq(i).attr('name');
+          var userid=$('.author-name').attr('name');
+          var nums=parseInt($('.blog-collect-num').eq(i).html());
+          ajax(id,nums,userid,i,'/addcollect');
 
         })
       })
-
-      function ajax(id,like){
+      function ajax(id,nums,userid,index,url){
         $.ajax({
           type:'post',
-          url:'/addlike',
+          url:url,
           data:{
             id:id,
-            like:like
+            userId:userid,
+            nums:nums
           },
           success:function(res){
             console.log(res);
+            if(res.ok){
+              if(url==='/addlike'){
+                 $('.like-numbers').eq(index).html(nums+1)
+              }else{
+                $('.blog-collect-num').eq(index).html(nums+1)
+              }
+            }else{
+              console.log('cccc');
+            }
           },
           error:function(){
             console.log('请求失败');
@@ -79,7 +162,17 @@
         })
       }
    
-  
+    window.onscroll=function(e){
+
+        var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+        console.log(scrollTop);
+        if(scrollTop>300){
+          $('#rightinfo').addClass('right-info-fix');
+        }else{
+          $('#rightinfo').removeClass('right-info-fix');
+
+        }
+    }
     
     </script>
    
