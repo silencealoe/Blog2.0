@@ -4,15 +4,15 @@
 }
 .container{
 	width: 900px;
-	height: 700px;
+	height: 1000px;
+	position: relative;
 }
  .navbar-default{
  	margin-bottom: 0;
  	border: none;
  }
 #container-fluid{
-	height: 700px;
-	background:;
+	/*height: 700px;*/
 }
 .styleImg{
 	width: 100%;
@@ -61,6 +61,49 @@
 	pointer-events: none;
 
 }
+.edit-head-img{
+	position: relative;
+	float: left;
+	width: 112px;
+	height: 104px;
+    border:1px solid #ccc;
+}
+.m-image{
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+#user-image{
+	height: 40px;
+	width: 80px;
+	display: block;
+	opacity: 0;
+
+}
+.ipt-mask{
+	width:80px;
+	height:40px;
+	position: absolute;
+	left:0;
+	top:0;
+	text-align: center;
+	line-height: 40px;
+	font-size: 18px;
+	background: #ccc;
+	clear: both;
+	pointer-events: none;
+}
+.upload-img{
+	position: relative;
+	margin-top: 20px;
+	float: left;
+	margin-left: 20px;
+
+}
+.edit-head-img img{
+	display: block;
+	width: 112px;
+	height: 104px;
+}
 .revise-my-info{
 	height: 140px;
 	position: relative;
@@ -68,9 +111,12 @@
 	margin-bottom: 10px;
 
 }
+.revise-my-info img{
+	width: 100%;
+	height: 104px;
+}
 .revise-my-info .head-img{
 	box-sizing: border-box;
-
 	width:120px;
 	height: 112px;
 	position: absolute;
@@ -80,11 +126,7 @@
 	border:4px solid #f0f0f0;
 	border-radius: 5px;
 }
-.head-img img{
-	display: block;
-	width: 100%;
-	height:104px;
-}
+
 .nickname{
 	position: absolute;
 	left:180px;
@@ -99,6 +141,7 @@
 	right: 40px;
 	top:20px;
 	user-select: none;
+	cursor: pointer;
 }
 .look-edit{
 	width:100%;
@@ -177,17 +220,8 @@ li{
 	overflow: hidden;
 	display: none;
 }
-.upload-img{
-	margin-left: 150px;
-	margin-top: 40px;
-	width:80px;
-	height: 30px;
-	position: relative;
-}
-.m-image{
-margin-bottom: 20px;
-overflow: hidden;
-}
+
+
 .m-name{
 	margin-bottom:20px;
 	overflow: hidden;
@@ -242,35 +276,20 @@ input{
 textarea{
 	text-indent: 2em;
 }
-.head-img i{
+.edit-head-img i{
 	font-size: 40px;
 }
-.ipt-mask{
-	width:80px;
-	height: 30px;
-	background: #ccc;
-	font-size: 16px;
-	line-height: 30px;
-	text-align: center;
-	position: absolute;
-	left:0;
-	top:0;
-	/*z-index: 10;*/
-	cursor: pointer;
-	pointer-events: none;
-}
-#user-image{
-	opacity: 0;
-}
+
 #plus{
 	width: 40px;
 	height: 40px;
-  display: block;
-  position: absolute;
-  left:50%;
-  top:50%;
-  margin-top: -20px;
-  margin-left: -20px;
+    display: block;
+    position: absolute;
+    left:50%;
+    top:50%;
+    margin-top: -20px;
+    margin-left: -20px;
+    z-index: -2;
 
 }
 .modal{
@@ -301,7 +320,7 @@ textarea{
 	position: absolute;
 	left:0;
 	top:0;
-	z-index: 20;
+	z-index: 2000;
 	background: rgba(0,0,0,.2);
 
 }
@@ -312,4 +331,45 @@ textarea{
 #create{
 	cursor: pointer;
 	user-select: none;
+}
+.revise-personinfo{
+	padding: 20px;
+	width:900px;
+	height:600px;
+	margin:0 auto;
+	background: white;
+	z-index: 100;
+	position: absolute;
+	left:0;
+	top:0;
+	box-shadow: 0 0 4px #ccc;
+	display: none;
+}
+.edit-head{
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	font-size: 20px;
+}
+.upload-headimg{
+	overflow: hidden;
+	/*position: relative;*/
+
+}
+.person-info-head{
+	float: left;
+	width: 120px;
+	height: 120px;
+	border:2px solid #ccc;
+}
+.close-revise{
+	position: absolute;
+	right:10px;
+	top:10px;
+	width:20px;
+	height: 20px;
+	text-align: center;
+	line-height:20px;
+	font-size: 20px;
+	cursor: pointer; 
 }

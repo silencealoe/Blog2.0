@@ -10,44 +10,80 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
   </head>
   <body>  
-    <%- include("header.ejs",{title:'首页',logout:"退出",who:who,create:"发表游记",index:'返回首页',isNew:true})%>
-    <div class="container">
-      <% if(isAuthor){ %>
-      <p class="modify-blog">
-        <a href="/blog/update?id=<%= itemList._id%>">修改游记</a>
-      </p>
-      <p class="delete-blog">
-        <a href="#" onclick="return false" id="delete-blog" name="<%= itemList._id%>">删除游记</a>
-      </p>
-    <% }else {%>
-      <p class="modify-blog">
-        <a href="#">收藏</a>
-      </p>
-      <p class="delete-blog">
-        <a href="#">评论</a>
-      </p>
-      <%}%>
-      <div class="media">
-          <div class="media-left">
-            <% for(var i=0;i<itemList.imgPath.length;i++) {%>
-            <div id="detail-img">
-              <img alt="64x64" src="<%= itemList.imgPath[i]%>"  width='300' height='300'>
-            </div>
+    <%- include("header.ejs",{title:'博客详情',logout:"退出",who:who,create:"发表游记",index:'返回首页',isNew:true})%>
 
-            <%}%>
-         
-          
-          </div>
-          <div class="media-body" id="media-body">
-            <div class="detail-title">
-                <h2 class="media-heading"><%= itemList.title%></h2>
-                作者:<span><%= itemList.author%></span>
-            </div>
-            <%= itemList.content%>  
-            <h2 class="empty">空空如也~~~~~</h2>
+    <div class="container">
+    
+      <div class="detail-left">
+          <div class="media">
+              <div class="media-left">
+                <% for(var i=0;i<itemList.imgPath.length;i++) {%>
+                <div id="detail-img">
+                  <img alt="64x64" src="<%= itemList.imgPath[i]%>"  width='300' height='300'>
+                </div>
+                <%}%> 
+              </div>
+              <div class="media-body" id="media-body">
+                <div class="detail-title">
+                    <h2 class="media-heading"><%= itemList.title%></h2>
+                    作者:<span><%= itemList.author%></span>
+                </div>
+                <%= itemList.content%>
+                <hr>  
+                <div class="user-comment">
+                  <h3>添加评论</h3>
+                  <textarea name="" id="" cols="80" rows="5"></textarea> 
+                </div>
+                <div class="comment-button">评论</div>
+              </div>
           </div>
       </div>
+      <div class="detail-right">
+          <% if(isAuthor){ %>
+          <p class="modify-blog">
+            <a href="/blog/update?id=<%= itemList._id%>">修改游记</a>
+          </p>
+          <p class="delete-blog">
+            <a href="#" onclick="return false" id="delete-blog" name="<%= itemList._id%>">删除游记</a>
+          </p>
+        <% }else {%>
+          <p class="modify-blog">
+            <a href="#">收藏</a>
+          </p>
+          <p class="delete-blog">
+            <a href="#">评论</a>
+          </p>
+          <%}%>
+          <div class="about-author">
+             <h2>关于作者</h2>
+             <div class="author-head" name="<%=aboutAuthor.id %>">
+               <img src="<%= aboutAuthor.headPath %>" alt="" class="img-circle" title="他的头像">
+             </div>
+             <h3 class="author-name"><%= aboutAuthor.nickname%></h3>
+             <ul class="focus-collect">
+                <li>关注</li>
+                <li>收藏</li>
+                <li><%=aboutAuthor.focus.length%></li>
+                <li><%=aboutAuthor.collect.length%></li>
+             </ul>
+             <% if(!isAuthor){%>
+             <div class="addfocus">
+                 <%if(isFocus){%>
+                  已关注
+                <%}else{%>
+                   <i class="glyphicon glyphicon-plus"></i>关注
+                <%}%>
+
+              </div>
+             <%}%>
+          </div>
+      </div>
+
+
+        
     </div>
+   
+
      <div class="dialog-mask">
            <div class="modal fade" tabindex="-1" role="dialog" id="modal">
               <div class="modal-dialog" role="document" id="modal-dialog">
@@ -69,6 +105,28 @@
    
    
     <script>
+      $('.addfocus').click(function(){
+        $.ajax({
+          url:'/detail/focus',
+          data:{
+            id:$('.author-head').attr('name')
+          },
+          success:function(res){
+            if(res.ok){
+              $('.addfocus').html('已关注');
+
+            }else{
+
+            }
+
+          },
+          error:function(){
+            console.log('请求失败')
+          }
+
+
+        })
+      })
       $('#delete-blog').click(function(){
         console.log('aaa');
        $.ajax({

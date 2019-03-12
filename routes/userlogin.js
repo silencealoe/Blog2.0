@@ -18,13 +18,13 @@ router.post('/validate',(req,res)=>{
 		else{
 			req.session.whatever = result[0];
 			console.log(req.session.whatever);
-			userInfo.create({
-				id:req.session.whatever._id,
-				nickname:req.session.whatever.username
-			}).then(result=>{
-                console.log('info',result);
+			// userInfo.create({
+				// id:req.session.whatever._id,
+				// nickname:req.session.whatever.username
+			// }).then(result=>{
+                // console.log('info',result);
 			   res.redirect('/');
-			})
+			// })
 		}
 	})
 })

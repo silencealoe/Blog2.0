@@ -9,7 +9,9 @@ var obj = {
 	mark:String,
 	gender:String,
 	headPath:String,
-	stylePath:String
+	stylePath:String,
+	focus:Array,
+	collect:Array
 }
 
 var blogModel = mongoose.model("userInformation",new Schema(obj));

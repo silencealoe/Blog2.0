@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var obj = {
+	authorId:String,
 	author:String,
 	title:String,
 	content:String,
@@ -12,7 +13,8 @@ var obj = {
 	likeId:Array,
 	collectionId:Array,
 	read:Number,
-	readId:Array
+	readId:Array,
+	comment:Array
 }
 
 var blogModel = mongoose.model("allartical",new Schema(obj));

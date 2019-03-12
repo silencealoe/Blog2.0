@@ -19,7 +19,7 @@ router.post('/validate',(req,res)=>{
 			userId:result._id,
 			artical:[]
 		}).then(resu=>{
-               
+  
 		     res.render('userregister',{title:"注册",isSuccess:true});
 		})
 	})

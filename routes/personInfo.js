@@ -16,7 +16,9 @@ router.post('/',userImg.single('file'),(req,res)=>{
 	 	addr:req.body.addr,
 	 	gender:req.body.gender,
 	 	headPath:'/userImg/'+req.file.filename,
-	 	stylePath:''
+	 	stylePath:'',
+	 	focus:[],
+	 	collect:[]
 	 }).then(result=>{
 	 	res.send({
 	 		ok:1

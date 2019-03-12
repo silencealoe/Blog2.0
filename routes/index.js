@@ -100,9 +100,21 @@ router.post('/addcollect',(req,res)=>{
 							collect:collect,
 							collectionId:re[0].collectionId
 						}}).then(r=>{
-							res.send({
-								ok:1
+							userInfo.find({id:req.session.whatever._id}).then(rss=>{
+								console.log('rsssss',rss[0]);
+								var index=rss[0].collect.indexOf(req.body.id);
+								if(index===-1){
+									rss[0].collect.push(req.body.id);
+								}
+								userInfo.update({id:req.session.whatever._id},{$set:{
+									collect:rss[0].collect
+								}}).then(rqs=>{
+									res.send({
+										ok:1
+									})
+								})
 							})
+							
 						})
 
 					}

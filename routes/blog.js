@@ -18,6 +18,7 @@ router.post('/',upload.array('myfile'),(req,res)=>{
 	console.log(req.body);
 	var imgArray = req.files.map(item=>'/upload/'+item.filename);
         allBlogModel.create({
+        	authorId:req.session.whatever._id,
         	author:req.session.whatever.username,
         	title:req.body.title,
         	content:req.body.content,
@@ -28,7 +29,8 @@ router.post('/',upload.array('myfile'),(req,res)=>{
         	read:0,
         	readId:[],
         	likeId:[],
-        	collectionId:[]
+        	collectionId:[],
+        	comment:[]
         }).then(result=>{
         	console.log('1233333');
         	res.render('blog',{title:'创建博客',user:req.session.whatever.username,isNew:true,isSuccess:true})

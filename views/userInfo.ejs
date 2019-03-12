@@ -13,6 +13,48 @@
     <%- include("header.ejs",{title:'个人中心',logout:"退出",who:who,create:'',index:"返回首页",isNew:isNew})%>
   <div class="container-fluid">
       <div class="container">
+        <div class="revise-personinfo">
+          <div class="close-revise">×</div>
+          <h2 class="edit-head">编辑个人资料</h2>
+          <div class="m-image">
+            <div class="edit-head-img">
+              <img src="<%= isNew?infoList.headPath:'' %>" alt="" class="img-round" id="img-circle" width="100" height="100">
+              <i class="glyphicon glyphicon-plus" id="plus"></i>
+            </div>
+            <div class="upload-img">
+              <input type="file" id="user-image" onchange="changepic('user')" name="myimg">
+              <div class="ipt-mask">上传头像</div> 
+            </div>
+          </div>
+          <div class="m-name">
+              <label>昵称：</label>
+              <input type="text" id="user-name" value="<%= isNew?infoList.nickname:'' %>">
+          </div>
+          <div class="m-age">
+              <label>年龄：</label>
+              <input type="text" id="user-age" value="<%= isNew?infoList.age:'' %>">
+          </div>
+          <div class="m-gender">
+              <label>性别：</label>
+              <input type="text" id="user-gender" value="<%= isNew?infoList.gender:'' %>">
+          </div>
+          <div class="m-addr">
+              <label>常居地：</label>
+              <input type="text" id="m-addr" value="<%= isNew?infoList.addr:'' %>">
+          </div>
+          <div class="m-mark">
+              <label>个性标签：</label>
+              <textarea name="m-mark" id="m-mark" cols="30" rows="6"><%= isNew?infoList.mark:'' %>
+              </textarea>      
+          </div>
+        <%if(isNew){%>
+                   <div id="revise">修改</div>
+                   <%}else{%>
+                     <div id="create">新建</div>
+                   <% } %>
+
+            -----
+        </div>
         <div class="styleImg" name="<%= infoList.id %>">
           <div class="storeImg">保存</div>
           <img src="<%= infoList.stylePath%>" alt="" id="style-img-src">
@@ -50,7 +92,6 @@
             <div class="edit-info">
               编辑个人资料
             </div>
-            
           </div>
        
         </div>
@@ -58,13 +99,14 @@
         <ul class="nav nav-pills">
           <li role="presentation" class="active"><a href="#">博客</a></li>
           <li role="presentation"><a href="#">相册</a></li>
-          <li role="presentation"><a href="#">收藏博客</a></li>
+          <li role="presentation"><a href="#">收藏</a></li>
           <li role="presentation"><a href="#">关注</a></li>
+        
         </ul>
         <ul class="info-content" id="info-content">
           <li>
             <table class="table" >
-              <caption>我的游记</caption>
+              <caption>我的博客</caption>
               <thead>
                 <tr>
                   <th>#</th>
@@ -85,15 +127,26 @@
               </tbody>
             </table>
           </li>
-          <li>zzz</li>
-          <li>xxx</li>
-          <li>aaa</li>
-          <li>aa</li>
+          <li>
+            <div>aaa</div>
+          </li>
+          <li>
+            <div class="collect">
+               <% for(var i=0;i<collectlist.length;i++){ %>
+                  <div><%= collectlist[i].title%></div>
+               <%}%>
+            </div>
+          </li>
+          <li>
+            <div class="myfocus">
+              <% for(var i=0;i<focuslist.length;i++) {%>
+                <div><%= focuslist[i].nickname %></div>
+              <%}%>
+            </div>
+          </li>
           <li>
             <div class="my-info">
-             
-
-              <div class="nickname">
+                   <div class="nickname">
                 <p>昵称：<span class="b-user"><%= who%></span></p>
               <!--   <p class="b-mark"><%= isNew?infoList.mark:'' %></p> -->
                 <p class="modify-info">
@@ -111,10 +164,10 @@
             <div class="revise-info">
               <h2><%= isNew?'修改信息':'新建信息'%></h2>
               <div class="m-image">
-               <!--  <div class="head-img">
+                <div class="head-img">
                   <img src="<%= isNew?infoList.headPath:'' %>" alt="" class="img-circle" id="img-circle" width="100" height="100">
                   <i class="glyphicon glyphicon-plus" id="plus"></i>
-                </div> -->
+                </div>
                 <div class="upload-img">
                   <input type="file" id="user-image" onchange="changepic('user')" name="myimg">
                   <p class="ipt-mask">上传头像</p> 
@@ -149,10 +202,15 @@
             </div>
           </li>        
         </ul>
+
+        </div>
       </div>  
     </div>
-  </div>
 
+
+
+  </div>
+   
     <div class="dialog-mask">
          <div class="modal fade" tabindex="-1" role="dialog" id="modal">
             <div class="modal-dialog" role="document" id="modal-dialog">
@@ -169,6 +227,13 @@
     </div>
    <%- include("footer.ejs") %> 
     <script>
+      $('.close-revise').click(function(){
+        
+        $('.revise-personinfo').css('display','none');
+      })
+      $('.edit-info').click(function(){
+        $('.revise-personinfo').css('display','block');
+      })
       $('.look-all').click(function(){
           $('.look-all i').toggleClass(' glyphicon-chevron-down glyphicon-chevron-up');
         if($('.look-edit').css('top')==='140px'){
