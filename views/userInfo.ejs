@@ -13,12 +13,12 @@
     <%- include("header.ejs",{title:'个人中心',logout:"退出",who:who,create:'',index:"返回首页",isNew:isNew})%>
   <div class="container-fluid">
       <div class="container">
-        <div class="revise-personinfo">
+        <div class="revise-personinfo" style="background-image:url(<%=infoList.stylePath%>);">
           <div class="close-revise">×</div>
           <h2 class="edit-head">编辑个人资料</h2>
           <div class="m-image">
             <div class="edit-head-img">
-              <img src="<%= isNew?infoList.headPath:'' %>" alt="" class="img-round" id="img-circle" width="100" height="100">
+              <img src="<%= infoList.headPath %>" alt="" class="img-round" id="img-circle" width="100" height="100">
               <i class="glyphicon glyphicon-plus" id="plus"></i>
             </div>
             <div class="upload-img">
@@ -28,32 +28,26 @@
           </div>
           <div class="m-name">
               <label>昵称：</label>
-              <input type="text" id="user-name" value="<%= isNew?infoList.nickname:'' %>">
+              <input type="text" id="user-name" value="<%= isNew?who:infoList.nickname%>">
           </div>
           <div class="m-age">
               <label>年龄：</label>
-              <input type="text" id="user-age" value="<%= isNew?infoList.age:'' %>">
+              <input type="text" id="user-age" value="<%= infoList.age%>">
           </div>
           <div class="m-gender">
               <label>性别：</label>
-              <input type="text" id="user-gender" value="<%= isNew?infoList.gender:'' %>">
+              <input type="text" id="user-gender" value="<%= infoList.gender%>">
           </div>
           <div class="m-addr">
               <label>常居地：</label>
-              <input type="text" id="m-addr" value="<%= isNew?infoList.addr:'' %>">
+              <input type="text" id="m-addr" value="<%= infoList.addr %>">
           </div>
           <div class="m-mark">
               <label>个性标签：</label>
-              <textarea name="m-mark" id="m-mark" cols="30" rows="6"><%= isNew?infoList.mark:'' %>
+              <textarea name="m-mark" id="m-mark" cols="30" rows="6"><%= infoList.mark%>
               </textarea>      
           </div>
-        <%if(isNew){%>
-                   <div id="revise">修改</div>
-                   <%}else{%>
-                     <div id="create">新建</div>
-                   <% } %>
-
-            -----
+          <div id="revise">确定</div>
         </div>
         <div class="styleImg" name="<%= infoList.id %>">
           <div class="storeImg">保存</div>
@@ -70,17 +64,23 @@
         </div>
         <div class="revise-my-info">
           <div class="head-img">
-            <img src="<%= isNew?infoList.headPath:''%>" alt="">
+            <% if(isNew) {%>
+            <div class="no-head">
+              <i class="glyphicon glyphicon-user"></i>
+            </div>
+            <%}else{%>
+            <img src="<%= infoList.headPath%>" alt="">
+            <%}%>
           </div>
           <div class="nickname">
-            <h2><%= who%></h2>
+            <h2><%= isNew?who:infoList.nickname%></h2>
           </div>
           <div class="all-info">
             <div class="detailed-info">
-              <p>个性标签:<span  class="b-mark"><%= isNew?infoList.mark:'' %></span></p>
-              <p>常住地:<span class="b-addr"><%= isNew?infoList.addr:''%></span></p>
-              <p>性别:<span class="b-gender"><%= isNew?infoList.gender:''%></span></p>
-              <p>年龄:<span class="b-age"><%= isNew?infoList.age:'' %></span></p>
+              <p>个性标签:<span  class="b-mark"><%= infoList.mark%></span></p>
+              <p>常住地:<span class="b-addr"><%= infoList.addr%></span></p>
+              <p>性别:<span class="b-gender"><%= infoList.gender%></span></p>
+              <p>年龄:<span class="b-age"><%= infoList.age%></span></p>
             </div> 
 
           </div>
@@ -132,75 +132,63 @@
           </li>
           <li>
             <div class="collect">
-               <% for(var i=0;i<collectlist.length;i++){ %>
-                  <div><%= collectlist[i].title%></div>
-               <%}%>
-            </div>
-          </li>
-          <li>
-            <div class="myfocus">
-              <% for(var i=0;i<focuslist.length;i++) {%>
-                <div><%= focuslist[i].nickname %></div>
+    
+              <%if(collectlist===undefined){%>
+                <div class="nocollect">你还没有收藏哟~ ~ ~</div>
+              <%}else{%>
+              <table class="table" >
+                <caption>我收藏的博客</caption>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>题目</th>
+                  </tr>
+                </thead>
+                <tbody>
+    
+                     <% collectlist.forEach(item=>{ %>
+                     <% for(var i=0;i<item.length;i++){%>
+                     <tr>
+                        <th><%= i+1%></th>       
+                        <th><%= item[i].title%></th>       
+                     </tr>    
+                  <%}%>
+                  <%})%>
+                </tbody>
+              </table>
               <%}%>
             </div>
           </li>
           <li>
-            <div class="my-info">
-                   <div class="nickname">
-                <p>昵称：<span class="b-user"><%= who%></span></p>
-              <!--   <p class="b-mark"><%= isNew?infoList.mark:'' %></p> -->
-                <p class="modify-info">
-                  <a href="" onclick="return false" id="modify-info"><%= isNew?'修改信息':'新建信息'%></a>
-                  <i class="glyphicon glyphicon-pencil"></i>   
-                </p>
-              </div>
-            <!--   <div class="detailed-info">
-                <p>常住地:<span class="b-addr"><%= isNew?infoList.addr:''%></span></p>
-                <p>性别:<span class="b-gender"><%= isNew?infoList.gender:''%></span></p>
-                <p>年龄:<span class="b-age"><%= isNew?infoList.age:'' %></span></p>
-             
-              </div> -->
-            </div>
-            <div class="revise-info">
-              <h2><%= isNew?'修改信息':'新建信息'%></h2>
-              <div class="m-image">
-                <div class="head-img">
-                  <img src="<%= isNew?infoList.headPath:'' %>" alt="" class="img-circle" id="img-circle" width="100" height="100">
-                  <i class="glyphicon glyphicon-plus" id="plus"></i>
-                </div>
-                <div class="upload-img">
-                  <input type="file" id="user-image" onchange="changepic('user')" name="myimg">
-                  <p class="ipt-mask">上传头像</p> 
-                </div>
-              </div>
-              <div class="m-name">
-                  <label>昵称：</label>
-                  <input type="text" id="user-name" value="<%= isNew?infoList.nickname:'' %>">
-              </div>
-              <div class="m-age">
-                  <label>年龄：</label>
-                  <input type="text" id="user-age" value="<%= isNew?infoList.age:'' %>">
-              </div>
-              <div class="m-gender">
-                  <label>性别：</label>
-                  <input type="text" id="user-gender" value="<%= isNew?infoList.gender:'' %>">
-              </div>
-              <div class="m-addr">
-                  <label>常居地：</label>
-                  <input type="text" id="m-addr" value="<%= isNew?infoList.addr:'' %>">
-              </div>
-              <div class="m-mark">
-                  <label>个性标签：</label>
-                  <textarea name="m-mark" id="m-mark" cols="30" rows="6"><%= isNew?infoList.mark:'' %>
-                  </textarea>      
-              </div>
-              <%if(isNew){%>
-              <div id="revise">修改</div>
+            <div class="myfocus">
+              <%if(focuslist===undefined){%>
+                <div class="nofocus">你还没有关注哟~ ~ ~</div>
               <%}else{%>
-                <div id="create">新建</div>
-              <% } %>
+              <table class="table" >
+                <caption>我关注的博主</caption>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th></th>
+                    <th>关注</th>
+                  </tr>
+                </thead>
+                <tbody>
+                     <% focuslist.forEach(item=>{ %>
+                     <% for(var i=0;i<item.length;i++){%>
+                     <tr>
+                        <th><%= i+1%></th>  
+                        <th><img src="<%= item[i].headPath%>" alt=""></th>     
+                        <th><%= item[i].nickname%></th>       
+                     </tr>    
+                  <%}%>
+                  <%})%>
+                </tbody>
+              </table>
+          
+              <%}%>
             </div>
-          </li>        
+          </li>            
         </ul>
 
         </div>
@@ -355,6 +343,15 @@
       })
 
     })
+    window.onscroll=function(){
+      var scrollTop=document.documentElement.scrollTop||document.body.scrollTop;
+      if(scrollTop>100){
+         $('#container-top').addClass('fixedtop');
+      }else{
+         $('#container-top').removeClass('fixedtop');
+
+      }
+    }
 
        
     </script>

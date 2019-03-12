@@ -10,13 +10,13 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
   </head>
   <body>
-    <%- include("header.ejs",{title:'首页',logout:"退出",who:user,create:"发表游记",index:'',isNew:true})%>
+    <%- include("header.ejs",{title:'首页',logout:"退出",who:user,create:"发表游记",index:''})%>
     <div class="container-fluid">
       <div class="container">
         <div class="avator-name">
           <div class="avator">
             <a href="/userInfo">
-              <% if(userinfo.headPath!==undefined){ %>
+              <% if(userinfo.headPath!==''){ %>
               <img src="<%= userinfo.headPath %>" alt="..." title="点击进入我的主页" class="img-rounded">
               <% } else{ %>
               <div class="no-head">
@@ -25,8 +25,8 @@
               <%}%>
             </a>
           </div>
-          <div class="author-name" name="<%= userinfo.id %>">
-            <a href="/userInfo"><%= userinfo.nickname %>の博客</a>
+          <div class="author-name" name="<%= userinfo===''?'':userinfo.id %>">
+            <a href="/userInfo"><%=isNew?user:userinfo.nickname %>の博客</a>
           </div>
           
           
@@ -52,7 +52,7 @@
               <div class="blog-detail">
                 <%= itemList[i].content %>
               </div>
-              <p class="read-all"><a href="/detail?id=<%= itemList[i]._id%>&userid=<%= userinfo.id%>">阅读全文</a></p>
+              <p class="read-all"><a href="/detail?id=<%= itemList[i]._id%>&userid=<%= userinfo===''?'':userinfo.id%>">阅读全文</a></p>
               <div class="blog-info">
                 <ul>
                   <li>
@@ -168,10 +168,13 @@
         console.log(scrollTop);
         if(scrollTop>300){
           $('#rightinfo').addClass('right-info-fix');
+          $('#container-top').addClass('fixedtop');
         }else{
           $('#rightinfo').removeClass('right-info-fix');
+          $('#container-top').removeClass('fixedtop');
 
         }
+
     }
     
     </script>

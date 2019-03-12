@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var userModel = require('../model/user');
+var userInfo = require('../model/userInfo')
 var myCollect = require('../model/mycollection');
 
 router.get('/',(req,res)=>{
@@ -19,8 +20,22 @@ router.post('/validate',(req,res)=>{
 			userId:result._id,
 			artical:[]
 		}).then(resu=>{
-  
+			userInfo.create({
+				id:result._id,
+				nickname:'',
+				age:0,
+				addr:'',
+				mark:'',
+				gender:'',
+				headPath:'',
+				stylePath:'',
+				focus:[],
+				collect:[]
+			}).then(s=>{
+
 		     res.render('userregister',{title:"注册",isSuccess:true});
+			})
+  
 		})
 	})
 })

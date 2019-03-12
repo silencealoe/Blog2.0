@@ -8,7 +8,7 @@ router.post('/',userImg.single('file'),(req,res)=>{
 	 console.log(req.file);
      console.log(req.session.whatever._id);
 	 console.log(req.body);
-	 userInfoModel.create({
+	 userInfoModel.update({
 	 	id:req.session.whatever._id,
 	 	nickname:req.body.nickname,
 	 	age:req.body.age,
@@ -17,8 +17,6 @@ router.post('/',userImg.single('file'),(req,res)=>{
 	 	gender:req.body.gender,
 	 	headPath:'/userImg/'+req.file.filename,
 	 	stylePath:'',
-	 	focus:[],
-	 	collect:[]
 	 }).then(result=>{
 	 	res.send({
 	 		ok:1

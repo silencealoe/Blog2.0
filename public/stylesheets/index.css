@@ -99,9 +99,10 @@ body{
 }
 .avator{
 	float: left;
+	border:2px solid white;
+	border-radius: 2px;
 }
 .avator img{
-	
 	width:100px;
 	height:100px;
 }
@@ -149,7 +150,7 @@ body{
 .right-info-fix{
 	position: fixed;
 	right: 60px;
-	top:-60px;
+	top:0px;
 }
 .no-head{
 	width: 80px;
@@ -162,4 +163,10 @@ body{
 .no-head i{
 	font-size: 80px;
 	color:#ccc;
+}
+.fixedtop{
+	position: fixed;
+	top:0;
+	left:0;
+	z-index: 100;
 }

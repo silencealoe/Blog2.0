@@ -9,10 +9,14 @@ router.get('/', function(req, res, next) {
 	console.log('session',req.session.whatever);
 	if(req.session.whatever){
 		Promise.all([allBlogModel.find({},{imgPath:0},{sort:{like:-1}}),userInfo.find({id:req.session.whatever._id})]).then(result=>{
-			console.log('headPath',result[1][0].headPath);
+			console.log('headPath',result[1][0]);
+			var hasname=false;
+			if(result[1][0].nickname===''){
+				hasname=true;
+			}
 			res.render('index',{
 	  				title: '首页',
-	  				isNew:true,
+	  				isNew:hasname,
 	  				user:req.session.whatever.username,
 	  				itemList:result[0],
 	  				userinfo:result[1][0],
