@@ -70,6 +70,7 @@
 }
 .detail-left{
 	width: 80%;
+	min-height: 600px;
 	float: left;
 	background: white;
 	border-radius: 5px;
@@ -155,4 +156,7 @@ margin:0 auto;
 	line-height: 30px;
 	margin-left: 520px;
 	cursor: pointer;
+}
+.container{
+	min-height: 600px;
 }

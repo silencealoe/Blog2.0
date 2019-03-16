@@ -9,13 +9,33 @@ router.get('/',(req,res)=>{
 
 			
 		Promise.all([allBlogModel.find({author:req.session.whatever.username},{},{sort:{createTime:-1}}),userInfoModel.find({id:req.session.whatever._id})]).then(result=>{
-			console.log(result[1][0]);
+			console.log('是新的吗',result[1][0]);
+		    console.log('传图片',result[0]);
+		    var myimagelist=[];
+		    var imgobj={
+		    	myimgs:[],
+		    	descri:'',
+		    	time:''
+		    }
+
+		    for(let i=0;i<result[0].length;i++){
+		    	console.log('qqqqqqqqqqqqqqqqqqqq',result[0][i]);
+		    	myimagelist.push({
+		    		myimgs:result[0][i].imgPath,
+		    		descri:result[0][i].title,
+		    		time:result[0][i].createTime.getFullYear()+'-'+(result[0][i].createTime.getMonth()+1)+'-'+result[0][i].createTime.getDate()
+		    	});
+    
+		    }
+		    console.log('拿到了 图片',myimagelist);
+
 			var hasInfo=false;
-			if(result[1].length===0){
+			if(result[1][0].age===0){
 				console.log('empty');
                  hasInfo=true;
 			}
-
+			console.log('是新的吗',hasInfo);
+            
             var focus=[];
             var collect=[];
             collect=result[1][0].collect;
@@ -51,6 +71,7 @@ router.get('/',(req,res)=>{
 								infoList:result[1][0],
 								collectlist:s,
 								focuslist:r,
+								imglist:myimagelist,
 								handleDate:function(date){
 					  					var year=date.getFullYear();
 							          	var month=date.getMonth();

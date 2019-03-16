@@ -128,12 +128,26 @@
             </table>
           </li>
           <li>
-            <div>aaa</div>
+            <div class="myimage">
+              <% for(var i=0;i<imglist.length;i++){%>
+                <% for(var j=0;j<imglist[i].myimgs.length;j++) {%>
+                <div class="img-item">
+                  <img src="<%= imglist[i].myimgs[j] %>" alt="">
+                  <div class="description">
+                    <p><%= imglist[i].descri%></p>
+                    <p><%= imglist[i].time%></p>
+                  </div>
+                </div>
+              
+                <%}%>
+              <%} %>
+              
+            </div>
           </li>
           <li>
             <div class="collect">
     
-              <%if(collectlist===undefined){%>
+              <%if(collectlist.length===0){%>
                 <div class="nocollect">你还没有收藏哟~ ~ ~</div>
               <%}else{%>
               <table class="table" >
@@ -161,7 +175,7 @@
           </li>
           <li>
             <div class="myfocus">
-              <%if(focuslist===undefined){%>
+              <%if(focuslist.length===0){%>
                 <div class="nofocus">你还没有关注哟~ ~ ~</div>
               <%}else{%>
               <table class="table" >
