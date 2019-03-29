@@ -11,9 +11,7 @@
   </head>
   <body>  
     <%- include("header.ejs",{title:'博客详情',logout:"退出",who:who,create:"发表游记",index:'返回首页',isNew:true})%>
-
     <div class="container">
-    
       <div class="detail-left">
           <div class="media">
               <div class="media-left">
@@ -29,12 +27,6 @@
                     作者:<span><%= itemList.author%></span>
                 </div>
                 <%= itemList.content%>
-                <hr>  
-                <div class="user-comment">
-                  <h3>添加评论</h3>
-                  <textarea name="" id="" cols="80" rows="5"></textarea> 
-                </div>
-                <div class="comment-button">评论</div>
               </div>
           </div>
       </div>
@@ -47,12 +39,6 @@
             <a href="#" onclick="return false" id="delete-blog" name="<%= itemList._id%>">删除游记</a>
           </p>
         <% }else {%>
-          <p class="modify-blog">
-            <a href="#">收藏</a>
-          </p>
-          <p class="delete-blog">
-            <a href="#">评论</a>
-          </p>
           <%}%>
           <div class="about-author">
              <h2>关于作者</h2>
@@ -78,12 +64,7 @@
              <%}%>
           </div>
       </div>
-
-
-        
     </div>
-   
-
      <div class="dialog-mask">
            <div class="modal fade" tabindex="-1" role="dialog" id="modal">
               <div class="modal-dialog" role="document" id="modal-dialog">
@@ -99,11 +80,6 @@
            </div>
       </div>
    <%- include("footer.ejs") %> 
-
-  
-    
-   
-   
     <script>
       $('.addfocus').click(function(){
         $.ajax({

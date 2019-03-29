@@ -6,8 +6,6 @@ var userInfoModel = require("../model/userInfo");
 router.get('/',(req,res)=>{
 	if(req.session.whatever.username){
 		console.log('aaa');
-
-			
 		Promise.all([allBlogModel.find({author:req.session.whatever.username},{},{sort:{createTime:-1}}),userInfoModel.find({id:req.session.whatever._id})]).then(result=>{
 			console.log('是新的吗',result[1][0]);
 		    console.log('传图片',result[0]);
