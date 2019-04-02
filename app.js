@@ -12,6 +12,7 @@ var blogRouter = require('./routes/blog');
 var userInfoRouter = require('./routes/userInfo');
 var detailRouter = require('./routes/detail');
 var personInfoRouter = require('./routes/personInfo');
+var otherInfoRouter = require('./routes/otherInfo');
 var session = require('express-session');
 var app = express();
 
@@ -46,6 +47,7 @@ app.use('/blog',blogRouter);
 app.use('/userInfo',userInfoRouter);
 app.use('/detail',detailRouter);
 app.use('/personInfo',personInfoRouter);
+app.use('/otherInfo',otherInfoRouter);
 
 
 // catch 404 and forward to error handler

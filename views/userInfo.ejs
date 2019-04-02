@@ -32,11 +32,13 @@
           </div>
           <div class="m-age">
               <label>年龄：</label>
-              <input type="text" id="user-age" value="<%= infoList.age%>">
+              <input type="number" id="user-age" value="<%= infoList.age%>">
           </div>
           <div class="m-gender">
               <label>性别：</label>
-              <input type="text" id="user-gender" value="<%= infoList.gender%>">
+              <input type="radio" value="男"name="sex" checked="checked"/><span>男</span>
+              <input type="radio" name="sex" value="女" /><span>女</span>
+            <!--   //value="<%= infoList.gender%>" -->
           </div>
           <div class="m-addr">
               <label>常居地：</label>
@@ -164,7 +166,7 @@
                      <% for(var i=0;i<item.length;i++){%>
                      <tr>
                         <th><%= i+1%></th>       
-                        <th><%= item[i].title%></th>       
+                        <th><a href="/detail?id=<%=item[i]._id%>"><%= item[i].title%></a></th>       
                      </tr>    
                   <%}%>
                   <%})%>
@@ -192,7 +194,7 @@
                      <% for(var i=0;i<item.length;i++){%>
                      <tr>
                         <th><%= i+1%></th>  
-                        <th><img src="<%= item[i].headPath%>" alt=""></th>     
+                        <th><a href="/otherInfo?who=<%= item[i].nickname%>&id=<%=item[i].id%>"><img src="<%= item[i].headPath%>" title="去看ta"></a></th>     
                         <th><%= item[i].nickname%></th>       
                      </tr>    
                   <%}%>
@@ -269,7 +271,7 @@
          formData.append('age',$('#user-age').val());
          formData.append('addr',$('#m-addr').val());
          formData.append('mark',$('#m-mark').val());
-         formData.append('gender',$('#user-gender').val());
+         formData.append('gender',$('input[name="sex"]:checked').val()); 
          $.ajax({
            url: url,
            type: 'POST',

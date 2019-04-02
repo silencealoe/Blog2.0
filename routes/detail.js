@@ -41,15 +41,16 @@ router.get('/',(req,res)=>{
                     isFocus=true;
                 }
                 userInfo.find({id:result[0].authorId}).then(ru=>{
-                var  aboutAuthor=ru[0];
+                var  aboutAuthor=ru;
+                console.log('输出啦',ru)
                 console.log('aaaaa',aboutAuthor);
                             res.render('detail',{
-                                title:'游记详情',
+                                title:'博客详情',
                                 who:req.session.whatever.username,
                                 isAuthor:isAuthor,
                                 isNew:false,
                                 itemList:final,
-                                aboutAuthor:aboutAuthor,
+                                aboutAuthor:aboutAuthor[0],
                                 isFocus:isFocus
                             });
 
@@ -86,6 +87,24 @@ router.get('/focus',(req,res)=>{
 
 
 
+    })
+})
+router.post('/comment',(req,res)=>{
+    console.log('comment',req.body.user);
+
+    var commentItem={
+        user:req.body.user,
+        comments:req.body.comment
+    }
+
+    allBlogModel.updateOne({_id:req.body.id},{$push:{
+        comment:commentItem
+
+    }}).then(result=>{
+        console.log('comment',result);
+        res.send({
+            ok:1
+        })
     })
 })
 

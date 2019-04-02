@@ -28,15 +28,37 @@
                 </div>
                 <%= itemList.content%>
               </div>
+              <hr>
+              <%if(!isAuthor){%>
+              <h3>评论区</h3>
+              <div class="user-comment" name="<%=who%>">
+                <textarea name="<%=itemList._id %>" id="usercomment" cols="110" rows="5"></textarea>
+                <div class="comment-button">评论</div>
+              </div>
+              <%}else{%>
+              <%}%>
+              <h3>热门评论</h3>
+              <hr>
+              <ul class="comment-detail">
+                <%for(var i=0;i<itemList.comment.length;i++){%>
+                  <li>
+                    <span class="user-name"><%= itemList.comment[i].user%>:</span>
+                    <span class="comments-detail"><%= itemList.comment[i].comments%></span>
+                  </li>
+                <%}%>
+                
+              </ul>
+
+
           </div>
       </div>
       <div class="detail-right">
           <% if(isAuthor){ %>
           <p class="modify-blog">
-            <a href="/blog/update?id=<%= itemList._id%>">修改游记</a>
+            <a href="/blog/update?id=<%= itemList._id%>">修改</a>
           </p>
           <p class="delete-blog">
-            <a href="#" onclick="return false" id="delete-blog" name="<%= itemList._id%>">删除游记</a>
+            <a href="#" onclick="return false" id="delete-blog" name="<%= itemList._id%>">删除</a>
           </p>
         <% }else {%>
           <%}%>
@@ -92,15 +114,11 @@
               $('.addfocus').html('已关注');
 
             }else{
-
             }
-
           },
           error:function(){
             console.log('请求失败')
           }
-
-
         })
       })
       $('#delete-blog').click(function(){
@@ -125,11 +143,44 @@
         error:function(){
           console.log('请求失败');
         }
-
        })
       })
+      $('.comment-button').on('click',function(){
+        console.log('asdfg');
+        console.log('comment',$('#usercomment').val());
+        $.ajax({
+          url:'/detail/comment',
+          type:'post',
+          data:{
+            id:$('#usercomment').attr('name'),
+            user:$('.user-comment').attr('name'),
+            comment:$('#usercomment').val()
+
+          },
+          success:function(res){
+            console.log(res);
+            if(res.ok){
+              var li1=$('<li></li>');
+              var span1=$('<span class="user-name"></span>');
+              var span2=$('<span class="comments-detail"></span>');
+              // $('span1').addClass('user-name');
+              // $('span2').addClass('comments-detail');
+              span1.html($('.user-comment').attr('name')+':');
+              span2.html($('#usercomment').val());
+              li1.append(span1);
+              li1.append(span2);
+              $('.comment-detail').append(li1);
 
 
+
+            }
+          },
+          error:function(){
+            console.log("请求失败");
+          }
+        })
+
+      })
     </script>
   </body>
 </html>

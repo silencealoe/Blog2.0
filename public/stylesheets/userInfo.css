@@ -243,6 +243,10 @@ li{
 	overflow: hidden;
 
 }
+.m-gender span{
+   float: left;
+}
+
 label{
 	display: block;
 	width:100px;
@@ -251,7 +255,7 @@ label{
 }
 input{
 	display: block;
-	width: 200px;
+	/*width: 200px;*/
 	float: left;
 }
 #create,#revise{

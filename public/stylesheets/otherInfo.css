@@ -1,0 +1,76 @@
+*{
+	margin:0;
+	padding: 0;
+}
+body{
+	background:#1f7994;
+}
+.container-fluid{
+	width:100%;
+	height: 550px;
+	background:#1f7994;
+}
+.container{
+	padding: 40px;
+}
+.head-name{
+	overflow: hidden;
+}
+.head-name .hisimg{
+	width: 120px;
+	height:120px;
+	float: left;
+	margin-right: 20px;
+	border-radius: 10px;
+	border:4px solid #f0f0f0;
+	box-shadow: 0 0 2px #f0f0f0;
+}
+.head-name .hisinfo{
+	padding-top: 50px;
+	float: left;
+	
+}
+ .head-name .hisname{
+
+	font-size: 20px;
+	color:white;
+	font-weight: bold;
+}
+.head-name span{
+	font-size: 14px;
+	color:white;
+
+
+}
+i{
+	color:#ccc;
+}
+
+.head-name img{
+	width:100%;
+	height:100%;
+
+}
+.hismark{
+	font-size: 16px;
+	color: white;
+	line-height: 24px;
+}
+.collect-focus h2{
+	font-size: 20px;
+	color: white;
+	border-bottom: 1px dotted white;
+
+}
+.blogitem{
+	overflow: hidden;
+}
+.blogitem p{
+	float: left;
+	color:white;
+	margin-right: 20px;
+}
+.blogitem a{
+	color:white;
+}
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.css' />
+    <!-- <link rel="stylesheet" href="/stylesheets/userInfo.css"> -->
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/footer.css">
+    <link rel="stylesheet" href="/stylesheets/otherInfo.css">
+    <script type="text/javascript" src="/bootstrap/js/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+  </head>
+  <body>  
+     <%- include("header.ejs",{title:title,logout:"退出",index:"返回首页"})%>
+     <div class="container-fluid">
+        <div class="container">
+          <div class="head-name">
+            <div class="hisimg">
+              <img src="<%=hisInfo.headPath%>" alt="">
+            </div>
+            <div class="hisinfo">
+                <div class="hisname"><i class="glyphicon glyphicon-user"></i> <%= hisInfo.nickname%></div>
+                <span><i class="glyphicon glyphicon-time"></i> <%= hisInfo.age%>岁</span>
+                <span><i class="glyphicon glyphicon-asterisk"></i> <%= hisInfo.gender%></span>
+                 <span><i class="glyphicon glyphicon-map-marker"></i> <%= hisInfo.addr%></span>
+                 <div class="hismark"><i class="glyphicon glyphicon-edit"></i> <%=hisInfo.mark%></div>
+            </div>
+          </div>
+          <hr>
+          <ul class="collect-focus">
+            <li>
+                <h2>ta的博客</h2>
+                <% hisArtical.forEach((item,index)=>{%>
+                <div class="blogitem">
+                    <p><i class="glyphicon glyphicon-triangle-right"></i></p>
+                    <p><%=index+1%></p>
+                    <p><a href="/detail?id=<%=item._id%>"><%=item.title%></a></p>
+                  
+                </div>
+                <%})%>
+             
+              
+            </li>
+       
+            
+
+            
+          </ul>
+
+
+
+        </div>
+    </div>
+      <%- include("footer.ejs") %> 
+
+   
+  </body>
+</html>
