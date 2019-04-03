@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var allBlogModel = require("../model/allartical");
 var userModel = require('../model/user');
 var userInfo = require('../model/userInfo')
 var myCollect = require('../model/mycollection');
@@ -51,5 +52,21 @@ router.get('/check',(req,res)=>{
 			res.send({ok:false})
 		}
 	})
+})
+router.get('/cancel',(req,res)=>{
+	console.log('delete',req.query);
+	userModel.findByIdAndRemove(req.query.id).then(result=>{
+		allBlogModel.remove({authorId:req.query.id}).then(resu=>{
+			userInfo.remove({id:req.query.id}).then(re=>{
+				res.send({
+					ok:true
+				})
+			})
+		})
+	})
+
+
+
+
 })
 module.exports = router;

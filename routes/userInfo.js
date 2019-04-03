@@ -64,7 +64,8 @@ router.get('/',(req,res)=>{
 						res.render('userinfo',{
 								title:'我的个人中心',
 								isNew:hasInfo,
-								who:req.session.whatever.username,
+								user:req.session.whatever.username,
+								who:req.session.whatever._id,
 								itemList:result[0],
 								infoList:result[1][0],
 								collectlist:s,

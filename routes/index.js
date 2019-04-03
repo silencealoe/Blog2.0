@@ -18,6 +18,7 @@ router.get('/', function(req, res, next) {
 	  				title: '首页',
 	  				isNew:hasname,
 	  				user:req.session.whatever.username,
+	  				who:req.session.whatever._id,
 	  				itemList:result[0],
 	  				userinfo:result[1][0],
 	  				handleDate:function(date){   

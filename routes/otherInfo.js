@@ -12,6 +12,7 @@ router.get('/',(req,res)=>{
 	 var focuslist=[...hisInfo.focus];	
 	 var collectlist=[...hisInfo.collect];
 	 res.render('otherInfo',{
+	 	who:req.session.whatever._id,
 	 	title:req.query.who+'的个人信息',
 	 	hisInfo:hisInfo,
 	 	hisArtical:hisArtical,

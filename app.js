@@ -13,6 +13,7 @@ var userInfoRouter = require('./routes/userInfo');
 var detailRouter = require('./routes/detail');
 var personInfoRouter = require('./routes/personInfo');
 var otherInfoRouter = require('./routes/otherInfo');
+var revisePsdRouter = require('./routes/revisepassword');
 var session = require('express-session');
 var app = express();
 
@@ -48,6 +49,7 @@ app.use('/userInfo',userInfoRouter);
 app.use('/detail',detailRouter);
 app.use('/personInfo',personInfoRouter);
 app.use('/otherInfo',otherInfoRouter);
+app.use('/revisepassword',revisePsdRouter);
 
 
 // catch 404 and forward to error handler

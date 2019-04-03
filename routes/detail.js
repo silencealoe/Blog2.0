@@ -46,7 +46,8 @@ router.get('/',(req,res)=>{
                 console.log('aaaaa',aboutAuthor);
                             res.render('detail',{
                                 title:'博客详情',
-                                who:req.session.whatever.username,
+                                who:req.session.whatever._id,
+                                user:req.session.whatever.username,
                                 isAuthor:isAuthor,
                                 isNew:false,
                                 itemList:final,

@@ -10,7 +10,7 @@
     <script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
   </head>
   <body>  
-    <%- include("header.ejs",{title:'个人中心',logout:"退出",who:who,create:'',index:"返回首页",isNew:isNew})%>
+    <%- include("header.ejs",{title:'个人中心',who:who,index:"返回首页",isNew:isNew})%>
   <div class="container-fluid">
       <div class="container">
         <div class="revise-personinfo" style="background-image:url(<%=infoList.stylePath%>);">
@@ -28,7 +28,7 @@
           </div>
           <div class="m-name">
               <label>昵称：</label>
-              <input type="text" id="user-name" value="<%= isNew?who:infoList.nickname%>">
+              <input type="text" id="user-name" value="<%= isNew?user:infoList.nickname%>">
           </div>
           <div class="m-age">
               <label>年龄：</label>
@@ -36,8 +36,9 @@
           </div>
           <div class="m-gender">
               <label>性别：</label>
-              <input type="radio" value="男"name="sex" checked="checked"/><span>男</span>
-              <input type="radio" name="sex" value="女" /><span>女</span>
+
+              <input type="radio" value="男"name="sex" checked="<%=infoList.gender==='男'?'checked':''%>"/><span>男</span>
+              <input type="radio" name="sex" value="女" checked="<%=infoList.gender==='女'?'checked':''%>"/><span>女</span>
             <!--   //value="<%= infoList.gender%>" -->
           </div>
           <div class="m-addr">
@@ -75,7 +76,7 @@
             <%}%>
           </div>
           <div class="nickname">
-            <h2><%= isNew?who:infoList.nickname%></h2>
+            <h2><%= isNew?user:infoList.nickname%></h2>
           </div>
           <div class="all-info">
             <div class="detailed-info">

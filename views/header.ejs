@@ -15,10 +15,60 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           
           <ul class="nav navbar-nav navbar-right">
-            <li></li>
-            <li><a href="/logout"><%= logout %></a></li>
+            <li class="firstmenu">
+                <a href="onclick:return false">设置</a>
+                <ul class="secondmenu" id="set">
+                  <li><a href="/revisepassword">修改密码</a></li>
+                  <li id="cancel" name="<%= who%>">注销账号</li>
+                  <li><a href="/logout" >退出当前账号</a></li>
+                </ul>  
+            </li>
+            
           </ul>
         </div>
     </nav>
   </div>
 </div>
+<div class="masknotice">
+      <div class="notice">
+          <h3>确认注销当前账号?</h3>  
+          <div class="confirm-cancel">
+            <p class="yes">确定</p>
+            <p class="no">取消</p>
+          </div>
+      </div> 
+</div> 
+<script>
+      $('#cancel').click(function(){
+      console.log('111');
+      $('.masknotice').css('display','block');
+      document.documentElement.style.overflow='hidden';
+
+      })
+      $('.no').click(function(){
+          $('.masknotice').css('display','none');
+          
+          document.documentElement.style.overflow='scroll';
+      })
+        $('.yes').click(function(){
+        console.log('ssss',$('#cancel').attr('name'));
+          $.ajax({
+              url:'/userregister/cancel',
+              data:{
+                id:$('#cancel').attr('name')
+              },
+              success:function(res){
+                  console.log(res);
+                  if(res.ok){
+
+                    location.href='/userlogin';
+                  }
+              },
+              error:function(){
+                console.log('请求失败');
+              }
+          })
+          
+        
+      })
+</script>   
